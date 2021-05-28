@@ -1,0 +1,60 @@
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.CssColors = void 0;
+    var CssColors = (function () {
+        function CssColors() {
+        }
+        CssColors.global_focus_background = "rgba(252, 252, 252, 0.3)";
+        CssColors.global_focus_background_flash = "rgba(252, 252, 252, 0.8)";
+        CssColors.global_background_systemfeedback_transparent = "rgba(0, 0, 0, .75)";
+        CssColors.global_background_high_transparent = "rgba(4, 4, 4, .75)";
+        CssColors.global_background_low_transparent = "rgba(4, 4, 4, .90)";
+        CssColors.global_background_very_low_transparent = "rgba(0, 0, 0, .90)";
+        CssColors.global_background_horizontal_gradient = "linear-gradient(90deg, rgba(0, 0, 0, .85) 30%, rgba(0, 0, 0, 0.5) 100%)";
+        CssColors.global_background_notification = "rgba(48, 48, 48, .90)";
+        CssColors.global_background_ribbon = "rgba(0, 0, 0, .80)";
+        CssColors.global_tile_background = "rgba(252, 252, 252, 0.1)";
+        CssColors.global_transparent_black = "rgba(0, 0, 0, 0)";
+        CssColors.global_gradient_livettv_panel_bottom = "linear-gradient(to top, rgba(0,0,0,0.85) 15%, rgba(0,0,0,0) 70%)";
+        CssColors.global_hub_background_tile = "rgba(4,4,4,.50)";
+        CssColors.A_CO_0 = "transparent";
+        CssColors.A_CO_1 = "#FCFCFC";
+        CssColors.A_CO_1_ARGB = "FFFCFCFC";
+        CssColors.A_CO_1_10 = "rgba(252, 252, 252, 0.1)";
+        CssColors.A_CO_1_15 = "rgba(252, 252, 252, 0.15)";
+        CssColors.A_CO_1_30 = "rgba(252, 252, 252, 0.3)";
+        CssColors.A_CO_1_70 = "rgba(252, 252, 252, 0.7)";
+        CssColors.A_CO_1_80 = "rgba(252, 252, 252, 0.8)";
+        CssColors.A_CO_2 = "#f8007f";
+        CssColors.A_CO_3 = "#040404";
+        CssColors.A_CO_3_10 = "rgba(4, 4, 4, 0.75)";
+        CssColors.A_CO_3_70 = "rgba(4, 4, 4, 0.7)";
+        CssColors.A_CO_4 = "#000000";
+        CssColors.A_CO_4_35 = "rgba(0, 0, 0, 0.35)";
+        CssColors.A_CO_4_55 = "rgba(0, 0, 0, 0.55)";
+        CssColors.A_CO_4_75 = "rgba(0, 0, 0, 0.75)";
+        CssColors.A_CO_4_90 = "rgba(0, 0, 0, 0.90)";
+        CssColors.A_CO_5 = "#969696";
+        CssColors.A_CO_6 = "#7c7c7c";
+        CssColors.A_CO_6_15 = "rgba(124, 124, 124, 0.15)";
+        CssColors.A_CO_6_30 = "rgba(124, 124, 124, 0.3)";
+        CssColors.A_CO_6_70 = "rgba(124, 124, 124, 0.7)";
+        CssColors.A_CO_7 = "#474747";
+        CssColors.A_CO_8 = "#303030";
+        CssColors.A_CO_9 = "#3ab2f2";
+        CssColors.A_CO_10 = "#ffc600";
+        CssColors.A_CO_11 = "#62a420";
+        CssColors.A_CO_12 = "#ec0000";
+        CssColors.A_CO_13 = "#101010";
+        CssColors.A_CO_14 = "#202020";
+        CssColors.A_CO_14_70 = "rgba(32, 32, 32, 0.7)";
+        CssColors.A_CO_15 = "#D48936";
+        CssColors.A_CO_16 = "#889130";
+        CssColors.A_CO_17_ARGB = "FF65C8C0";
+        CssColors.backgroundColor = "#081c2a";
+        return CssColors;
+    }());
+    exports.CssColors = CssColors;
+});
+//# sourceMappingURL=css.colors.js.map
