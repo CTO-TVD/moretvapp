@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -19,10 +17,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "react", "bluebird", "src/src-de-telekom-react/public", "src/src-de-telekom-style/public", "src/src-de-telekom/public", "../../translation/public", "src/src-de-telekom-tv-core/public", "../../component/infoArea/infoDialog.component", "../setting/common/dialog/user.agreement.dialog.component"], function (require, exports, React, bluebird, public_1, public_2, public_3, public_4, public_5, infoDialog_component_1, user_agreement_dialog_component_1) {
     "use strict";
@@ -184,7 +184,7 @@ define(["require", "exports", "react", "bluebird", "src/src-de-telekom-react/pub
         UarPinDialogComponent = UarPinDialogComponent_1 = __decorate([
             public_1.reactComponent({
                 ID: "uar-pin-dialog-component",
-                styles: __spreadArray(__spreadArray([], public_1.GenericDialogTemplate.getTemplate()), [public_2.selector("& .pinAlignment")
+                styles: __spreadArrays(public_1.GenericDialogTemplate.getTemplate(), [public_2.selector("& .pinAlignment")
                         .props({
                         position: "relative",
                         marginLeft: "auto",

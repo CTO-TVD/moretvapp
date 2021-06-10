@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -34,7 +32,7 @@ define(["require", "exports", "react", "./reactBaseComponent", "./reactDecorator
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createInjector = void 0;
-    var createInjector = function (injectProps) { return function (InnerComponent) {
+    exports.createInjector = function (injectProps) { return function (InnerComponent) {
         var CoercedWrappedComponent = InnerComponent;
         var InjectorElement = (function (_super) {
             __extends(InjectorElement, _super);
@@ -54,6 +52,5 @@ define(["require", "exports", "react", "./reactBaseComponent", "./reactDecorator
         }(reactBaseComponent_1.ReactBaseComponent));
         return InjectorElement;
     }; };
-    exports.createInjector = createInjector;
 });
 //# sourceMappingURL=reactHoc.js.map

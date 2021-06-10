@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -19,10 +17,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../framework/public", "src/src-de-telekom-react/public", "src/src-de-telekom-tv-core/public", "src/src-de-telekom/public", "../../component/public", "../../services/public", "../../translation/public", "./uar.password.dialog", "./uar.pin.dialog", "./uar.remoteaccess.dialog"], function (require, exports, bluebird, rxjs_1, operators_1, public_1, public_2, public_3, public_4, public_5, public_6, public_7, uar_password_dialog_1, uar_pin_dialog_1, uar_remoteaccess_dialog_1) {
+define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../framework/public", "src/src-de-telekom-react/public", "src/src-de-telekom-tv-core/public", "src/src-de-telekom/public", "../../component/public", "../../services/public", "../../translation/public", "./autostandby.confirmation.dialog", "./uar.password.dialog", "./uar.pin.dialog", "./uar.remoteaccess.dialog"], function (require, exports, bluebird, rxjs_1, operators_1, public_1, public_2, public_3, public_4, public_5, public_6, public_7, autostandby_confirmation_dialog_1, uar_password_dialog_1, uar_pin_dialog_1, uar_remoteaccess_dialog_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UarService = exports.UarDialogAbortError = void 0;
+    var UarServiceAgeRatingSource = (function () {
+        function UarServiceAgeRatingSource() {
+        }
+        UarServiceAgeRatingSource.EIT = "eit";
+        UarServiceAgeRatingSource.BACKEND = "be";
+        UarServiceAgeRatingSource.RECORDING = "pvr";
+        UarServiceAgeRatingSource.DEFAULT = "default";
+        UarServiceAgeRatingSource.CA = "ca";
+        UarServiceAgeRatingSource.SERVICE = "service";
+        return UarServiceAgeRatingSource;
+    }());
     var UarServiceError = (function () {
         function UarServiceError() {
         }
@@ -145,6 +154,13 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
             public_4.Logger.debug(function (log) { return log(public_4.LogMsg("parentalUnblockLiveTV - start", UarService_1.TAG)); });
             var deferred = this.deferred = public_4.Defer.defer();
             this.waitForDialogClose = waitForDialogClose;
+            var mediaPlayerHostService = public_6.TVMediaPlayerHostService.getInstance();
+            mediaPlayerHostService.getMediaPlayerController().then(function (player) {
+                var result = player.ParentalUnblock();
+                if (result != 0) {
+                    deferred.reject(new UarError(UarErrorReason.ERROR_PLAYER_PARENTALUNBLOCK, UarServiceError.ERROR_PARENTALUNBLOCK));
+                }
+            });
             return deferred.promise;
         };
         UarService.prototype.parentalUnblockRecording = function (waitForDialogClose) {
@@ -152,6 +168,13 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
             public_4.Logger.debug(function (log) { return log(public_4.LogMsg("parentalUnblockRecording - start", UarService_1.TAG)); });
             var deferred = this.deferred = public_4.Defer.defer();
             this.waitForDialogClose = waitForDialogClose;
+            var mediaPlayerHostService = public_6.TVMediaPlayerHostService.getInstance();
+            mediaPlayerHostService.getMediaPlayerController().then(function (player) {
+                var result = player.ParentalUnblock();
+                if (result != 0) {
+                    deferred.reject(new UarError(UarErrorReason.ERROR_PLAYER_PARENTALUNBLOCK, UarServiceError.ERROR_PARENTALUNBLOCK));
+                }
+            });
             return deferred.promise;
         };
         UarService.prototype.triggerLogin = function () {
@@ -274,6 +297,10 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
                         public_4.Logger.debug(function (log) { return log(public_4.LogMsg("UAR Level 1 - DialogRequest: " + jsonResult.id + ". Remoteaccess request", UarService_1.TAG)); });
                         _this.handleRemoteAccessRequest(request);
                     }
+                    else if (jsonResult.header.source.id === UarService_1.UarAutoStandbyHeader) {
+                        public_4.Logger.debug(function (log) { return log(public_4.LogMsg("UAR Level 1 - DialogRequest: " + jsonResult.id + ". AutoStandby request", UarService_1.TAG)); });
+                        _this.handleAutoStandbyRequest(jsonResult);
+                    }
                     else {
                         public_4.Logger.debug(function (log) { return log(public_4.LogMsg("UAR Level 1 - DialogRequest: " + jsonResult.id + " Other type: " + request.type + ", header: " + jsonResult.header.source.id + ", content-id: " + jsonResult.header.source.variables["CONTENT-ID"], UarService_1.TAG)); });
                         request.PostAcknowledge(true);
@@ -348,6 +375,11 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
                     }
                 }).catch(public_4.ErrorManager.catchFunc(UarService_1, 0x09));
             }
+        };
+        UarService.prototype.handleAutoStandbyRequest = function (jsonResult) {
+            public_2.TVDialogHostService.getInstance()
+                .show({ extraData: { timeout: jsonResult.timeout || 60 } }, autostandby_confirmation_dialog_1.AutostandbyConfirmationDialogComponent, { layer: public_2.DialogLayer.dialogLayer4, voiceCommandBehaviour: { disableVoiceCommandExecution: true } })
+                .result();
         };
         UarService.prototype.handleRemoteAccessRequest = function (request) {
             var dialogService = public_2.TVDialogHostService.getInstance();
@@ -458,6 +490,103 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
             }
             return false;
         };
+        UarService.prototype.mapSpecialParagraph1 = function (parentalArea) {
+            if (parentalArea.contentType) {
+                switch (parentalArea.contentType) {
+                    case public_3.ParentalUnlockArea.Menu:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI023, { menutitle: parentalArea.contentTitle });
+                    case public_3.ParentalUnlockArea.Function:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI021);
+                    case public_3.ParentalUnlockArea.Visibilty:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI022);
+                    case public_3.ParentalUnlockArea.ManualRecordingLock:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI023b);
+                    case public_3.ParentalUnlockArea.AvsPin:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI024_AVSDLG_P1);
+                    case public_3.ParentalUnlockArea.Customize:
+                        return parentalArea.custom ? parentalArea.custom.dialogParagraph1 : undefined;
+                    default:
+                        return "Unknown contentType";
+                }
+            }
+            else {
+                return parentalArea.contentTitle;
+            }
+        };
+        UarService.prototype.mapSpecialDialogTitle = function (parentalArea) {
+            if (parentalArea.contentType) {
+                switch (parentalArea.contentType) {
+                    case public_3.ParentalUnlockArea.AvsPin:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI024_AVSDLG_TITLE);
+                    case public_3.ParentalUnlockArea.Customize:
+                        return parentalArea.custom ? parentalArea.custom.dialogTitle : public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_PH_TI001);
+                    default:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_PH_TI001);
+                }
+            }
+            else {
+                return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_PH_TI001);
+            }
+        };
+        UarService.prototype.mapSpecialParagraph2 = function (parentalArea) {
+            if (parentalArea.contentType) {
+                switch (parentalArea.contentType) {
+                    case public_3.ParentalUnlockArea.AvsPin:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI024_AVSDGL_P2);
+                    case public_3.ParentalUnlockArea.Customize:
+                        return parentalArea.custom ? parentalArea.custom.dialogParagraph2 : public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI017c);
+                    default:
+                        return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI017c);
+                }
+            }
+            else {
+                return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI017c);
+            }
+        };
+        UarService.prototype.mapPinHintText = function (player, item, program, scope, ageRating, programName) {
+            if (ageRating === void 0) { ageRating = ""; }
+            if (programName === void 0) { programName = null; }
+            var isRecording = player && player.DTExtensions.getPlayedContentType() == 3;
+            var hintText = public_2.Filter.message(public_2.Filter.context(), isRecording ? public_7.messagesCore.STB_CR_TI027_2 : public_7.messagesCore.STB_CR_TI017b);
+            var ageRatingNumber = !isNaN(parseInt(ageRating, 10)) ? parseInt(ageRating, 10) : undefined;
+            var ratingText = public_4.Guard.isDefined(ageRating) ? public_2.Filter.message(public_2.Filter.context(), public_5.ProgramItemFormatter.formatAgeRating(ageRatingNumber)) : "";
+            public_4.Logger.debug(function (log) { return log(public_4.LogMsg("##### mapPinHintText default -> " + ratingText, UarService_1.TAG)); });
+            if (program && !ageRating) {
+                ratingText = public_2.Filter.message(public_2.Filter.context(), public_5.ProgramItemFormatter.formatAgeRating(program.dtExtensions.ageRating));
+            }
+            if (!item) {
+                return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI017, { title: programName, agerating: ratingText });
+            }
+            else if (item.$type === "programItem") {
+                if (program && scope == "program") {
+                    return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI017, { title: program.title, agerating: ratingText });
+                }
+                else if (program && scope == "content") {
+                    return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI019, { channeltitle: program.dtExtensions.channel.title, programtitle: program.title, agerating: ratingText });
+                }
+            }
+            else if (item.$type === "channelItem") {
+                if (program && scope === "content") {
+                    return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI019, { channeltitle: item.title, programtitle: program.title, agerating: ratingText });
+                }
+                else if ((program || programName) && scope == "program") {
+                    var title = program ? program.title : programName;
+                    return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI017, { title: title, agerating: ratingText });
+                }
+                else {
+                    return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI023a, { channeltitle: item.title });
+                }
+            }
+            else if (item.$type === "vasItem") {
+                var ratingText_1 = ageRating ? public_2.Filter.message(public_2.Filter.context(), public_5.ProgramItemFormatter.formatAgeRating(ageRatingNumber)) : public_2.Filter.message(public_2.Filter.context(), public_5.ProgramItemFormatter.formatAgeRating(item.dtExtensions.ageRating));
+                return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI018, { apptitle: item.title, agerating: ratingText_1 });
+            }
+            else if (item.$type === "recordingItem") {
+                var ratingText_2 = ageRating ? public_2.Filter.message(public_2.Filter.context(), public_5.ProgramItemFormatter.formatAgeRating(ageRatingNumber)) : public_2.Filter.message(public_2.Filter.context(), public_5.ProgramItemFormatter.formatAgeRating(item.dtExtensions.unLockAgeRating));
+                return public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI027_1, { programtitle: item.title, agerating: ratingText_2 });
+            }
+            return hintText;
+        };
         UarService.prototype.enrichAuthDialogModel = function (userData) {
             var _a;
             var extraData = (_a = this.lastActiveDialogModel) === null || _a === void 0 ? void 0 : _a.extraData;
@@ -489,6 +618,112 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
             }
             extraData.hideComfortFeature = true;
             return true;
+        };
+        UarService.prototype.enrichDialogModel = function (contentId, programId, scope, jsonResult) {
+            var _a, _b;
+            var extraData = (_a = this.lastActiveDialogModel) === null || _a === void 0 ? void 0 : _a.extraData;
+            if (extraData && this.isSpecialContentId(contentId)) {
+                public_4.Logger.debug(function (log) { return log(public_4.LogMsg("##### handlePinDialogCore for special case " + contentId, UarService_1.TAG)); });
+                var parentalArea = void 0;
+                if (contentId === UarService_1.AVSCONTENT_SCENARIO) {
+                    parentalArea = { contentType: public_3.ParentalUnlockArea.AvsPin, contentTitle: "" };
+                    extraData.removePinForgotten = true;
+                    extraData.subtext = public_2.Filter.message(public_2.Filter.context(), public_7.messagesCore.STB_CR_TI024_AVSDLG_HINT);
+                    if (this.lastActiveDialogModel) {
+                        this.lastActiveDialogModel.opaqueBackground = true;
+                    }
+                }
+                else {
+                    if (contentId) {
+                        try {
+                            parentalArea = JSON.parse(contentId);
+                        }
+                        catch (error) {
+                            parentalArea = { contentTitle: "", contentType: public_3.ParentalUnlockArea.Undefined };
+                        }
+                    }
+                    else {
+                        parentalArea = { contentTitle: "", contentType: public_3.ParentalUnlockArea.Undefined };
+                    }
+                }
+                extraData.paragraph1 = this.mapSpecialParagraph1(parentalArea);
+                extraData.dialogTitle = this.mapSpecialDialogTitle(parentalArea);
+                extraData.paragraph2 = this.mapSpecialParagraph2(parentalArea);
+                extraData.navigateBackAtCancel = (_b = parentalArea.custom) === null || _b === void 0 ? void 0 : _b.navigateBackAtCancel;
+                if (parentalArea.contentType == public_3.ParentalUnlockArea.Menu || parentalArea.contentType == public_3.ParentalUnlockArea.AvsPin) {
+                    extraData.hideComfortFeature = true;
+                }
+                return bluebird.resolve(true);
+            }
+            else if (scope == "program" || scope == "content") {
+                var ageRatingSource = jsonResult ? jsonResult.header.source.variables["AGE-RATING-SOURCE"] : null;
+                var mediaPlayerHostService = public_6.TVMediaPlayerHostService.getInstance();
+                if (extraData && ageRatingSource === UarServiceAgeRatingSource.DEFAULT) {
+                    return mediaPlayerHostService.getMediaPlayerController()
+                        .then(function (player) {
+                        var isRecording = player && player.DTExtensions.getPlayedContentType() == 3;
+                        extraData.paragraph1 = public_2.Filter.message(public_2.Filter.context(), isRecording ? public_7.messagesCore.STB_CR_TI027_2 : public_7.messagesCore.STB_CR_TI017b);
+                        return bluebird.resolve(true);
+                    });
+                }
+                else {
+                    return this.handleProgramContent(contentId, programId, scope, jsonResult.header.source.variables["AGE-RATING"], jsonResult.header.source.variables.NAME);
+                }
+            }
+            else {
+                return bluebird.resolve(false);
+            }
+        };
+        UarService.prototype.handleProgramContent = function (contentId, programId, scope, ageRating, programName) {
+            var _this = this;
+            var _a;
+            if (ageRating === void 0) { ageRating = ""; }
+            if (programName === void 0) { programName = null; }
+            var extraData = (_a = this.lastActiveDialogModel) === null || _a === void 0 ? void 0 : _a.extraData;
+            var mediaPlayerHostService = public_6.TVMediaPlayerHostService.getInstance();
+            return bluebird.all([
+                contentId ? public_3.ApplicationClient.getItemById(contentId) : bluebird.resolve(undefined),
+                mediaPlayerHostService.getMediaPlayerController()
+            ])
+                .then(function (_a) {
+                var item = _a[0], player = _a[1];
+                public_4.Logger.debug(function (log) { return log(public_4.LogMsg(item ? "##### handlePinDialog for item " + item.title + " at scope " + scope + " is type: " + item.$type + " ageRating: " + ageRating : "##### handlePinDialog -> getItemById for " + contentId + " delivers no data", UarService_1.TAG)); });
+                if (extraData && item && (item.$type === "vasItem" || item.$type === "recordingItem")) {
+                    extraData.paragraph1 = _this.mapPinHintText(player, item, undefined, scope, ageRating);
+                    return { item: item, isHandled: true };
+                }
+                return { player: player, item: item, isHandled: false };
+            })
+                .then(function (resultVasCheck) {
+                if (resultVasCheck.isHandled) {
+                    return true;
+                }
+                else {
+                    if (resultVasCheck.item && programId) {
+                        return public_3.ApplicationClient.programManagement
+                            .getPrograms({ programs: [programId] })
+                            .then(function (programs) {
+                            var program = programs ? programs[0] : undefined;
+                            public_4.Logger.debug(function (log) { var _a; return log(public_4.LogMsg("##### handlePinDialog for " + (program ? program.title : programName) + " on " + ((_a = resultVasCheck.item) === null || _a === void 0 ? void 0 : _a.title), UarService_1.TAG)); });
+                            if (extraData)
+                                extraData.paragraph1 = _this.mapPinHintText(resultVasCheck.player, resultVasCheck.item, program, scope, ageRating, programName);
+                            return true;
+                        })
+                            .catch(function () {
+                            public_4.Logger.debug(function (log) { var _a; return log(public_4.LogMsg("##### handlePinDialog, no program found for " + programId + " on " + ((_a = resultVasCheck.item) === null || _a === void 0 ? void 0 : _a.title) + " using: " + programName, UarService_1.TAG)); });
+                            if (extraData)
+                                extraData.paragraph1 = _this.mapPinHintText(resultVasCheck.player, resultVasCheck.item, undefined, scope, ageRating, programName);
+                            return true;
+                        });
+                    }
+                    else {
+                        public_4.Logger.warn(function (log) { return log(public_4.LogMsg("##### handlePinDialogCore unhandled UAR for " + contentId, UarService_1.TAG)); });
+                        if (extraData)
+                            extraData.paragraph1 = _this.mapPinHintText(resultVasCheck.player, resultVasCheck.item, undefined, scope, ageRating, programName);
+                        return true;
+                    }
+                }
+            });
         };
         UarService.prototype.rejectAndCancel = function (request) {
             if (this.deferred)
@@ -561,6 +796,17 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
                     this.showPinDialog();
                 }
                 else if (isContentUar) {
+                    this.enrichDialogModel(contentId, programId, scope, jsonResult)
+                        .then(function (isValid) {
+                        if (isValid) {
+                            _this.showPinDialog();
+                        }
+                        else {
+                            _this.rejectAndCancel(extraData_1.uarRequest);
+                            public_4.Logger.warn(function (log) { return log(public_4.LogMsg("##### handlePinDialog unhandled ContentUar dialog for CONTENT-ID: " + contentId + " PROGRAM-ID: " + programId + " SCOPE: " + scope, UarService_1.TAG)); });
+                        }
+                    })
+                        .catch(public_4.ErrorManager.catchFunc(UarService_1, 0x04));
                 }
                 else if (isAuthUar) {
                     if (this.enrichAuthDialogModel(userData)) {
@@ -863,12 +1109,16 @@ define(["require", "exports", "bluebird", "rxjs", "rxjs/operators", "../../frame
         UarService.UarDialogSuccessHeader = "UAR.PinDialog.Success.Header";
         UarService.UarAuthDialogSuccessHeader = "AuthenticationManager.UAR.Success.Header";
         UarService.UarRemoteAccessHeader = "UAR.RemoteAccess.Header";
+        UarService.UarAutoStandbyHeader = "UAR.AutoStandbyDialog.Title";
         UarService.UarRecordingFunctionLockName = "RecordingFunctionLock";
         UarService.AVSCONTENT_SCENARIO = "ADULT_SESSION";
         UarService.debounceParentalAutoUnlock = 3000;
         __decorate([
             public_4.log2(function () { return ({ name: UarService_1.TAG }); })
         ], UarService.prototype, "handleParentalAutoUnlock", null);
+        __decorate([
+            public_4.log2(function () { return ({ name: UarService_1.TAG }); })
+        ], UarService.prototype, "handleAutoStandbyRequest", null);
         UarService = UarService_1 = __decorate([
             public_4.logTag()
         ], UarService);

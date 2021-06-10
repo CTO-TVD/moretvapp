@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -229,8 +227,7 @@ define(["require", "exports", "react", "underscore", "react-transition-group", "
         TVInputFieldComponent.prototype.selectCharacter = function (state, item) {
             if (!item)
                 return null;
-            var index = (item === null || item === void 0 ? void 0 : item.specialCharacter)
-                ? this.getCharacterIndexByLetter(state.currentCharacterSet, item.specialCharacter)
+            var index = (item === null || item === void 0 ? void 0 : item.specialCharacter) ? this.getCharacterIndexByLetter(state.currentCharacterSet, item.specialCharacter)
                 : this.getCharacterIndex(state.currentCharacterSet, item);
             if (index === -1) {
                 throw new Error("Character '" + item + "' is not in the current character list!");

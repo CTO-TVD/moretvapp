@@ -1,7 +1,9 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "src/src-de-telekom-tv-core/public", "./diagnostic.helper", "src/src-de-telekom/typing/guard"], function (require, exports, public_1, diagnostic_helper_1, guard_1) {
     "use strict";
@@ -29,7 +31,7 @@ define(["require", "exports", "src/src-de-telekom-tv-core/public", "./diagnostic
         DiagnosticStartpage.convertToPageResults = function (allPagesEvents) {
             return Object.keys(allPagesEvents).map(function (pageName) {
                 var pageEvents = allPagesEvents[pageName];
-                var timestamps = __spreadArray([], pageEvents.map(function (item) { return item.timestamp || 0; }));
+                var timestamps = __spreadArrays(pageEvents.map(function (item) { return item.timestamp || 0; }));
                 var totalStartMs = Math.min.apply(Math, timestamps);
                 var totalEndMs = Math.max.apply(Math, timestamps);
                 return {

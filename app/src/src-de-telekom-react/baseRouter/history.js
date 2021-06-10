@@ -15,10 +15,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "bluebird", "src/src-de-telekom/public", "./location", "../base/public"], function (require, exports, bluebird, public_1, location_1, public_2) {
     "use strict";
@@ -87,7 +89,7 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "./locati
             }
             if (!this.cbOnCheck)
                 throw new public_2.ReactRouterError("History is not configured completely. Check callback functions.");
-            this.locations = __spreadArray([], this.locations);
+            this.locations = __spreadArrays(this.locations);
             var currentLocations = this.locations;
             var newLocations = this.createNewLocations(currentLocations, intent, localOptions);
             public_1.Logger.debug(function (log) { return log(public_1.LogMsg("startIntent starts intent '" + JSON.stringify(intent) + "' and options '" + JSON.stringify(localOptions) + "'", History_1.TAG)); });
@@ -139,17 +141,17 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "./locati
             var newLocations = locations;
             if (options.type === "forward") {
                 if (intent && public_1.Guard.isString(intent.pathname)) {
-                    newLocations = __spreadArray(__spreadArray([], locations), [location_1.Location.createLocation(intent)]);
+                    newLocations = __spreadArrays(locations, [location_1.Location.createLocation(intent)]);
                 }
             }
             else if (options.type === "replace") {
                 var item = locations[locations.length - 1];
-                newLocations = __spreadArray(__spreadArray([], locations.slice(0, locations.length - 1)), [location_1.Location.createLocation(intent, item)]);
+                newLocations = __spreadArrays(locations.slice(0, locations.length - 1), [location_1.Location.createLocation(intent, item)]);
             }
             else if (options.type === "backward") {
                 if (locations.length > 1) {
                     var item = locations[locations.length - 2];
-                    newLocations = __spreadArray(__spreadArray([], locations.slice(0, locations.length - 2)), [location_1.Location.createLocation(intent, item, { isBackNavigation: true })]);
+                    newLocations = __spreadArrays(locations.slice(0, locations.length - 2), [location_1.Location.createLocation(intent, item, { isBackNavigation: true })]);
                 }
             }
             else if (options.type === "exit") {
@@ -159,14 +161,14 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "./locati
                         if (exitLocations.length > 0) {
                             var exitPosition = locations.indexOf(exitLocations[exitLocations.length - 1]);
                             var item = locations[exitPosition];
-                            newLocations = __spreadArray(__spreadArray([], locations.slice(0, exitPosition)), [location_1.Location.createLocation(intent, item, { isBackNavigation: true, isExitNavigation: true })]);
+                            newLocations = __spreadArrays(locations.slice(0, exitPosition), [location_1.Location.createLocation(intent, item, { isBackNavigation: true, isExitNavigation: true })]);
                         }
                     }
                     else {
                         var exitLocations = locations.slice(0, locations.length - 1).filter(function (location) { return location.isExitMarker; });
                         var exitPosition = exitLocations.length > 0 ? locations.indexOf(exitLocations[exitLocations.length - 1]) : 0;
                         var item = locations[exitPosition];
-                        newLocations = __spreadArray(__spreadArray([], locations.slice(0, exitPosition)), [location_1.Location.createLocation(intent, item, { isBackNavigation: true, isExitNavigation: true })]);
+                        newLocations = __spreadArrays(locations.slice(0, exitPosition), [location_1.Location.createLocation(intent, item, { isBackNavigation: true, isExitNavigation: true })]);
                     }
                 }
             }

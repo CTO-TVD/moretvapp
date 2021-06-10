@@ -4,10 +4,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "../util/log/public", "rxjs"], function (require, exports, public_1, rxjs_1) {
     "use strict";
@@ -56,11 +58,11 @@ define(["require", "exports", "../util/log/public", "rxjs"], function (require, 
                     var func = function () {
                         handler();
                     };
-                    var handle = funcSetInterval.apply(void 0, __spreadArray([func, timeout], args));
+                    var handle = funcSetInterval.apply(void 0, __spreadArrays([func, timeout], args));
                     _this.tasksInterval.push({ id: handle, delay: timeout, start: new Date() });
                     return handle;
                 }
-                return funcSetInterval.apply(void 0, __spreadArray([handler, timeout], args));
+                return funcSetInterval.apply(void 0, __spreadArrays([handler, timeout], args));
             };
             window.clearInterval = function (handle) {
                 removeTask(handle);
@@ -89,11 +91,11 @@ define(["require", "exports", "../util/log/public", "rxjs"], function (require, 
                         removeTask(handle_1);
                         handler();
                     };
-                    var handle_1 = funcSetTimeout.apply(void 0, __spreadArray([func, timeout], args));
+                    var handle_1 = funcSetTimeout.apply(void 0, __spreadArrays([func, timeout], args));
                     _this.tasksTimeout.push({ id: handle_1, delay: timeout, start: new Date() });
                     return handle_1;
                 }
-                return funcSetTimeout.apply(void 0, __spreadArray([handler, timeout], args));
+                return funcSetTimeout.apply(void 0, __spreadArrays([handler, timeout], args));
             };
             window.clearTimeout = function (handle) {
                 removeTask(handle);

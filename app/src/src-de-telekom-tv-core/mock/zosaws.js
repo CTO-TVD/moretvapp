@@ -15,10 +15,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "rxjs", "../backend/public", "bluebird", "lokijs", "moment", "src/src-de-telekom/public"], function (require, exports, rxjs_1, backend, bluebird, lokijs, moment, public_1) {
     "use strict";
@@ -59,10 +61,7 @@ define(["require", "exports", "rxjs", "../backend/public", "bluebird", "lokijs",
                     var pipStream = ((_d = channel.pipStream) === null || _d === void 0 ? void 0 : _d.zosaId) === id;
                     var streams = streamItems.chain().data()[((_e = channel.channelNumber) !== null && _e !== void 0 ? _e : 0) % streamItems.count()];
                     var selectedStream = pipStream ? streams.pipStream
-                        : (((_g = (_f = streams.channelStreams) === null || _f === void 0 ? void 0 : _f.uhd) === null || _g === void 0 ? void 0 : _g.videoDefinition) === (channelStream === null || channelStream === void 0 ? void 0 : channelStream.videoDefinition)) ? (_h = streams.channelStreams) === null || _h === void 0 ? void 0 : _h.uhd
-                            : (((_k = (_j = streams.channelStreams) === null || _j === void 0 ? void 0 : _j.hd) === null || _k === void 0 ? void 0 : _k.videoDefinition) === (channelStream === null || channelStream === void 0 ? void 0 : channelStream.videoDefinition)) ? (_l = streams.channelStreams) === null || _l === void 0 ? void 0 : _l.hd
-                                : (((_o = (_m = streams.channelStreams) === null || _m === void 0 ? void 0 : _m.sd) === null || _o === void 0 ? void 0 : _o.videoDefinition) === (channelStream === null || channelStream === void 0 ? void 0 : channelStream.videoDefinition)) ? (_p = streams.channelStreams) === null || _p === void 0 ? void 0 : _p.sd
-                                    : (_t = (_r = (_q = streams.channelStreams) === null || _q === void 0 ? void 0 : _q.uhd) !== null && _r !== void 0 ? _r : (_s = streams.channelStreams) === null || _s === void 0 ? void 0 : _s.hd) !== null && _t !== void 0 ? _t : (_u = streams.channelStreams) === null || _u === void 0 ? void 0 : _u.sd;
+                        : (((_g = (_f = streams.channelStreams) === null || _f === void 0 ? void 0 : _f.uhd) === null || _g === void 0 ? void 0 : _g.videoDefinition) === (channelStream === null || channelStream === void 0 ? void 0 : channelStream.videoDefinition)) ? (_h = streams.channelStreams) === null || _h === void 0 ? void 0 : _h.uhd : (((_k = (_j = streams.channelStreams) === null || _j === void 0 ? void 0 : _j.hd) === null || _k === void 0 ? void 0 : _k.videoDefinition) === (channelStream === null || channelStream === void 0 ? void 0 : channelStream.videoDefinition)) ? (_l = streams.channelStreams) === null || _l === void 0 ? void 0 : _l.hd : (((_o = (_m = streams.channelStreams) === null || _m === void 0 ? void 0 : _m.sd) === null || _o === void 0 ? void 0 : _o.videoDefinition) === (channelStream === null || channelStream === void 0 ? void 0 : channelStream.videoDefinition)) ? (_p = streams.channelStreams) === null || _p === void 0 ? void 0 : _p.sd : (_t = (_r = (_q = streams.channelStreams) === null || _q === void 0 ? void 0 : _q.uhd) !== null && _r !== void 0 ? _r : (_s = streams.channelStreams) === null || _s === void 0 ? void 0 : _s.hd) !== null && _t !== void 0 ? _t : (_u = streams.channelStreams) === null || _u === void 0 ? void 0 : _u.sd;
                     var url = selectedStream === null || selectedStream === void 0 ? void 0 : selectedStream.url;
                     var result = playbackHistory
                         .chain()
@@ -1208,7 +1207,7 @@ define(["require", "exports", "rxjs", "../backend/public", "bluebird", "lokijs",
         ServiceClientZosaMock.prototype.convertToList = function (itemFields, data, offset, total) {
             var _this = this;
             var result = {};
-            itemFields = itemFields ? __spreadArray(__spreadArray([], itemFields), ["zosaId", "zosaType"]) : [];
+            itemFields = itemFields ? __spreadArrays(itemFields, ["zosaId", "zosaType"]) : [];
             result.elements = data.map(function (value) { return _this.clone(value, itemFields); });
             result.offset = offset;
             result.total = total;

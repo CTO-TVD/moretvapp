@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -63,13 +61,13 @@ define(["require", "exports", "react", "src/src-de-telekom-react/public", "src/s
             this.validateForm({ disableNotification: true });
         };
         MtvSkyPurchaseStep2Page.prototype.validateForm = function (_a) {
-            var _b = _a === void 0 ? { disableNotification: false } : _a, _c = _b.disableNotification, disableNotification = _c === void 0 ? false : _c;
+            var _b = (_a === void 0 ? { disableNotification: false } : _a).disableNotification, disableNotification = _b === void 0 ? false : _b;
             var valid = true;
             var invalidFieldName;
             this.disableNotification = disableNotification;
             if (this.props.customerdata) {
-                for (var _i = 0, _d = this.form; _i < _d.length; _i++) {
-                    var s = _d[_i];
+                for (var _i = 0, _c = this.form; _i < _c.length; _i++) {
+                    var s = _c[_i];
                     valid = sky_customer_forms_1.SkyForms.validateScenario(s, this.props.customerdata[s.key]);
                     if (!valid) {
                         invalidFieldName = s.key;

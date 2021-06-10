@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -30,10 +28,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "bluebird", "src/src-de-telekom/public", "../backend/public", "../common/extensions", "./applicationclient", "./applicationclient.devicemanagement"], function (require, exports, bluebird, public_1, backend, extensions_1, applicationclient_1, applicationclient_devicemanagement_1) {
     "use strict";
@@ -308,7 +308,7 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "../backe
                 var currentChannelNumber = channel.channelNumber;
                 if (currentChannelNumber) {
                     var nextChannel = channels.filter(function (item) { return (item.channelNumber || 0) > currentChannelNumber; })[0] || channels[0];
-                    var previousChannel = __spreadArray([], channels).reverse().filter(function (item) { return (item.channelNumber || Number.MAX_VALUE) < currentChannelNumber; })[0] || channels[channels.length - 1];
+                    var previousChannel = __spreadArrays(channels).reverse().filter(function (item) { return (item.channelNumber || Number.MAX_VALUE) < currentChannelNumber; })[0] || channels[channels.length - 1];
                     result.next = nextChannel;
                     result.previous = previousChannel;
                 }
@@ -370,7 +370,7 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "../backe
             var channelNumberChanges = channelPairs
                 .filter(function (channelPair) { return channelPair.oldState && channelPair.newState && channelPair.oldState.channelNumber != channelPair.newState.channelNumber; })
                 .map(function (channelPair) { return (__assign(__assign({}, channelPair), { type: ChannelChangeType.channelNumber })); });
-            return __spreadArray(__spreadArray(__spreadArray([], favouriteChanges), visibilityChanges), channelNumberChanges);
+            return __spreadArrays(favouriteChanges, visibilityChanges, channelNumberChanges);
         };
         ChannelManagement.favouriteStateIsDifferent = function (item1, item2) {
             return public_1.Guard.isDefined(item1) && public_1.Guard.isDefined(item2) &&

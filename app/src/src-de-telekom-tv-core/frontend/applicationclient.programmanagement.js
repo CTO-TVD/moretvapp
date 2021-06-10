@@ -4,10 +4,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "underscore", "bluebird", "moment", "../backend/public", "src/src-de-telekom/public", "./applicationclient", "../common/extensions"], function (require, exports, _, bluebird, moment, backend, public_1, applicationclient_1, extensions_1) {
     "use strict";
@@ -162,7 +164,7 @@ define(["require", "exports", "underscore", "bluebird", "moment", "../backend/pu
                     return bluebird.resolve(items);
                 }
                 var skipFirstItem = ((items.length > 0) && (items[items.length - 1].zosaId === newItems[0].zosaId));
-                var newArray = __spreadArray(__spreadArray([], items), (skipFirstItem ? newItems.slice(1) : newItems).filter(function (newItem) { return moment(newItem.startTime).isAfter(new Date()); }));
+                var newArray = __spreadArrays(items, (skipFirstItem ? newItems.slice(1) : newItems).filter(function (newItem) { return moment(newItem.startTime).isAfter(new Date()); }));
                 return newArray.length < itemsCount ?
                     ProgramManagement_1.attachProgramItems(channel, new Date(timeFrom.getTime() + (6 * 60 * 60 * 1000)), itemsCount, newArray) :
                     bluebird.resolve(newArray.slice(0, itemsCount));

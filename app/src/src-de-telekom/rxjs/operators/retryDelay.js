@@ -2,7 +2,7 @@ define(["require", "exports", "rxjs", "rxjs/operators"], function (require, expo
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.retryDelay = void 0;
-    var retryDelay = function (_a) {
+    exports.retryDelay = function (_a) {
         var _b = _a.delay, delay = _b === void 0 ? 1000 : _b, _c = _a.maxRetryAttempts, maxRetryAttempts = _c === void 0 ? 3 : _c, _d = _a.scalingFactor, scalingFactor = _d === void 0 ? 1 : _d, _e = _a.resetRetryCountOnEmission, resetRetryCountOnEmission = _e === void 0 ? true : _e;
         return function (source) {
             var retryAttempts = 0;
@@ -20,6 +20,5 @@ define(["require", "exports", "rxjs", "rxjs/operators"], function (require, expo
             }));
         };
     };
-    exports.retryDelay = retryDelay;
 });
 //# sourceMappingURL=retryDelay.js.map

@@ -29,7 +29,7 @@
         },
         "default": {
             "clientID": "10TVL1SAM30000004901NGTVAUTHMANAGER00000",
-            "clientSecret": ""
+            "clientSecret": "BBAP3FG2-LW3K-L2MQ-WMBS-96WPMNF893MC"
         }
     },
     // only for TU
@@ -50,8 +50,8 @@
         "endpoint": "https://accounts.login10.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000000000000",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.preprod.html"
@@ -62,8 +62,8 @@
         "endpoint": "https://accounts.login10.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000000000000",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.preprod.html"

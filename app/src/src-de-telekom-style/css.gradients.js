@@ -1,7 +1,9 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "./css.base", "src/src-de-telekom/public"], function (require, exports, css_base_1, public_1) {
     "use strict";
@@ -29,7 +31,7 @@ define(["require", "exports", "./css.base", "src/src-de-telekom/public"], functi
                 throw new public_1.IllegalArgumentError("The array 'stopPoints' must contain at least one element.");
             if (angle < 0 || angle > 360)
                 throw new public_1.IllegalArgumentError("The 'angle' parameter is outside the valid range of 0 to 360. Value: '" + angle + "'");
-            var points = __spreadArray([], stopPoints).sort(function (a, b) { return a.position - b.position; }).map(function (item) { return item.toString(); });
+            var points = __spreadArrays(stopPoints).sort(function (a, b) { return a.position - b.position; }).map(function (item) { return item.toString(); });
             return css_base_1.declaration()
                 .props({
                 background: "linear-gradient(" + angle + "deg, " + points.join(", ") + ")"
@@ -46,7 +48,7 @@ define(["require", "exports", "./css.base", "src/src-de-telekom/public"], functi
             if (steps <= 0)
                 throw new public_1.IllegalArgumentError("The 'steps' parameter must be greater than 0. Value: '" + steps + "'");
             var slopeSteps = [];
-            var points = __spreadArray([], stopPoints).sort(function (a, b) { return a.position - b.position; });
+            var points = __spreadArrays(stopPoints).sort(function (a, b) { return a.position - b.position; });
             for (var index = 0; index < points.length - 1; index++) {
                 var value = (points[index + 1].color.alpha - points[index].color.alpha) / (points[index + 1].position - points[index].position);
                 var slope = { start: points[index].position, end: points[index + 1].position, color: points[index].color, slope: value };

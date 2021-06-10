@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -34,9 +32,9 @@ define(["require", "exports", "../baseRouter/public", "src/src-de-telekom/public
                     case "mysubscriptions": return public_2.Feature.has(public_2.FeatureItems.moreTvMagentaHaus, public_2.FeatureRights.viewItems) ? new ContractsSwitch() : new Contracts();
                     case "termsofuse": return new TermsOfUse({ id: pid });
                     case "upselling": return new UpsellingPage({ id: channelex, quality: params.get("quality") });
-                    case "portal_eons": return undefined;
-                    case "channels": return undefined;
-                    default: return undefined;
+                    default:
+                        return new OverviewDT();
+                        ;
                 }
             };
             return Factory;
@@ -62,6 +60,16 @@ define(["require", "exports", "../baseRouter/public", "src/src-de-telekom/public
             return OverviewSky;
         }(public_1.BaseIntent));
         IntentMoreTV.OverviewSky = OverviewSky;
+        var RouterPage = (function (_super) {
+            __extends(RouterPage, _super);
+            function RouterPage(data) {
+                if (data === void 0) { data = {}; }
+                return _super.call(this, RouterPage.pathname, data) || this;
+            }
+            RouterPage.pathname = prefix + "/router";
+            return RouterPage;
+        }(public_1.BaseIntent));
+        IntentMoreTV.RouterPage = RouterPage;
         var UpsellingPage = (function (_super) {
             __extends(UpsellingPage, _super);
             function UpsellingPage(data) {

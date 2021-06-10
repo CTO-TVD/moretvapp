@@ -1,1 +1,1 @@
-{"version":3,"file":"JsonEntity.js","sourceRoot":"","sources":["JsonEntity.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;IAEA;QAAgC,8BAAY;QAExC,oBAAY,IAAS;mBAEjB,kBAAM,IAAI,CAAC,SAAS,CAAC,IAAI,CAAC,EAAE,kBAAkB,CAAC;QACnD,CAAC;QACL,iBAAC;IAAD,CAAC,AAND,CAAgC,2BAAY,GAM3C;IANY,gCAAU"}
+{"version":3,"file":"JsonEntity.js","sourceRoot":"","sources":["JsonEntity.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;IAEA;QAAgC,8BAAY;QAExC,oBAAY,IAAS;mBAEjB,kBAAM,IAAI,CAAC,SAAS,CAAC,IAAI,CAAC,EAAE,kBAAkB,CAAC;QACnD,CAAC;QACL,iBAAC;IAAD,CAAC,AAND,CAAgC,2BAAY,GAM3C;IANY,gCAAU"}

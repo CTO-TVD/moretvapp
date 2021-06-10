@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -30,10 +28,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "react", "underscore", "src/src-de-telekom-tv-moretv/public", "../menu/util/public", "../util/public", "bluebird", "src/src-de-telekom-react/public", "src/src-de-telekom-style/public", "src/src-de-telekom/public", "src/src-de-telekom-app-tv-core-v2/public", "../../component/animation/animation", "./actions.component20", "./data.mapper", "../../translation/public", "../../component/public", "../../component/detailpage/channelgrid.component", "../../public"], function (require, exports, React, _, mtv, util, mtvUtil, bluebird, public_1, public_2, public_3, public_4, animation_1, actions_component20_1, data_mapper_1, public_5, public_6, channelgrid_component_1, public_7) {
     "use strict";
@@ -351,7 +351,7 @@ define(["require", "exports", "react", "underscore", "src/src-de-telekom-tv-more
         };
         MtvDetailPage20.setLayout = function (prevState) {
             var _a, _b, _c, _d, _e, _f, _g;
-            var modules = __spreadArray([], prevState.modules);
+            var modules = __spreadArrays(prevState.modules);
             var vmods = [];
             if (!((_a = prevState.gridData) === null || _a === void 0 ? void 0 : _a.channels) || prevState.gridData.channels.length == 0) {
                 if (!((_b = prevState.gridData) === null || _b === void 0 ? void 0 : _b.rows) || prevState.gridData.rows.length == 0) {
@@ -372,7 +372,7 @@ define(["require", "exports", "react", "underscore", "src/src-de-telekom-tv-more
             if (!prevState.descriptionLong) {
                 modules[Module.Info].height = 0;
             }
-            var refModules = __spreadArray([], modules);
+            var refModules = __spreadArrays(modules);
             var topPosition = 0;
             for (var i = 0; i < refModules.length; i++) {
                 if (i == Module.CombiChannelGrid) {
@@ -409,7 +409,7 @@ define(["require", "exports", "react", "underscore", "src/src-de-telekom-tv-more
             var _this = this;
             this.setState(function (prevState) {
                 var oldState = __assign({}, prevState);
-                oldState.modules = __spreadArray([], _this.state.modules);
+                oldState.modules = __spreadArrays(_this.state.modules);
                 var unscaledHeight = public_2.Css.scaleBack(height);
                 if (oldState.modules[moduleId].height != unscaledHeight) {
                     oldState.modules[moduleId].height = unscaledHeight;

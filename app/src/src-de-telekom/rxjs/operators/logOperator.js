@@ -2,7 +2,7 @@ define(["require", "exports", "rxjs/operators", "src/src-de-telekom/util/log/Log
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.log = void 0;
-    var log = function (_a) {
+    exports.log = function (_a) {
         var _b = _a.prefix, prefix = _b === void 0 ? "" : _b, _c = _a.level, level = _c === void 0 ? "debug" : _c, _d = _a.tag, tag = _d === void 0 ? "Logger" : _d;
         return function (source) {
             var log = function (message) {
@@ -27,6 +27,5 @@ define(["require", "exports", "rxjs/operators", "src/src-de-telekom/util/log/Log
             }), operators_1.finalize(function () { return log("doFinally"); }));
         };
     };
-    exports.log = log;
 });
 //# sourceMappingURL=logOperator.js.map

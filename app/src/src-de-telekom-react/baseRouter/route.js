@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -165,9 +163,8 @@ define(["require", "exports", "bluebird", "react", "./matchpath", "../base/publi
         ], RouteInternal);
         return RouteInternal;
     }(public_1.ReactBaseComponent));
-    var Route = function (props) {
+    exports.Route = function (props) {
         return React.createElement(public_1.ReactBaseContext.Consumer, null, function (value) { return React.createElement(RouteInternal, __assign({}, props, { router: value.router })); });
     };
-    exports.Route = Route;
 });
 //# sourceMappingURL=route.js.map

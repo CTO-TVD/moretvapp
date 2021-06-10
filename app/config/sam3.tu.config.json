@@ -33,7 +33,7 @@
         },
         "default": {
             "clientID": "10TVL0SAM30000004901NGTVAUTHMANAGER00000",
-            "clientSecret": ""
+            "clientSecret": "MWLP3F9K-9438-L294-WMBR-DLWPMNF893DJ"
         }
     },
     // only for TU
@@ -42,8 +42,8 @@
         "endpoint": "https://accounts.login00.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000000696743",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.tu.html"
@@ -54,8 +54,8 @@
         "endpoint": "https://accounts.login00.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000001134537",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.tu.html"
@@ -66,8 +66,8 @@
         "endpoint": "https://accounts.login00.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000001112411",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.tu.html"
@@ -78,8 +78,8 @@
         "endpoint": "https://accounts.login00.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000005358255",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.tu.html"
@@ -89,8 +89,8 @@
         "endpoint": "https://accounts.login00.idm.ver.sul.t-online.de/oauth2/tokens",
         "username": "",
         "password": "",
-        "pin": "1111",
-        "avspin": "1818",
+        "pin": "",
+        "avspin": "",
         "anid": "120049010000000000696743",
         "code": "",
         "redirectUri": "https://cto-tvd.github.io/portal/nightly/redirect.tu.html"

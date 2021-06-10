@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -71,7 +69,7 @@ define(["require", "exports", "src/src-de-telekom-react/public", "src/src-de-tel
             }
         };
         MtvMessageOverlayComponent.createSkyDialog = function (_a) {
-            var _b = _a === void 0 ? {} : _a, _c = _b.context, context = _c === void 0 ? public_1.Filter.context() : _c;
+            var _b = (_a === void 0 ? {} : _a).context, context = _b === void 0 ? public_1.Filter.context() : _b;
             var dialogService = public_1.TVDialogHostService.getInstance();
             return dialogService.show({
                 title: undefined,

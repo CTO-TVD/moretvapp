@@ -6,8 +6,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -19,10 +17,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/public", "src/src-de-telekom-style/public", "src/src-de-telekom-app-tv-core-v2/public", "src/src-de-telekom-tv-moretv/public", "../util/public", "src/src-de-telekom/public", "../../translation/public", "./dt_purchasestep_opt1", "./dt_purchasestep_opt2", "./dt_purchasestep1", "./dt_purchasestep2", "./dt_purchasestep3", "../../component/public", "./business_error.dialog", "src/src-de-telekom-tv-core/public"], function (require, exports, bluebird, React, public_1, public_2, public_3, mtv, util, public_4, public_5, dt_purchasestep_opt1_1, dt_purchasestep_opt2_1, dt_purchasestep1_1, dt_purchasestep2_1, dt_purchasestep3_1, public_6, business_error_dialog_1, public_7) {
     "use strict";
@@ -69,7 +69,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/pub
                 _this.setState({ step: step }, function () { return _this.renderSteps(step); });
             };
             _this.changeOptionAccepted = function (option, isChecked, ctxt) {
-                var newContexts = __spreadArray([], _this.state.contexts);
+                var newContexts = __spreadArrays(_this.state.contexts);
                 newContexts[ctxt].optionsAccepted[option] = isChecked;
                 _this.setState({ contexts: newContexts }, function () {
                     public_4.Logger.debug(function (log) { return log(public_4.LogMsg("accepted option: '" + _this.state.contexts[ctxt].optionsAccepted[option] + "'", MtvDtPurchasePage_1.TAG)); });

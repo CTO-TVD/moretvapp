@@ -4,10 +4,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "bluebird", "moment", "src/src-de-telekom/public", "src/src-de-telekom/util/public", "../backend/public", "../backend/Zac/ServiceClientZac", "../backend/Zosa/ServiceClientZosa", "./applicationclient.system", "./applicationclient.tds", "./applicationclient.voicehistory"], function (require, exports, bluebird, moment, public_1, public_2, public_3, ServiceClientZac_1, ServiceClientZosa_1, applicationclient_system_1, applicationclient_tds_1, applicationclient_voicehistory_1) {
     "use strict";
@@ -127,7 +129,7 @@ define(["require", "exports", "bluebird", "moment", "src/src-de-telekom/public",
                 return bluebird.all(customPrivacyItems.map(function (customPrivacyItem) { return customPrivacyItem.isItemCheckedFunc ? customPrivacyItem.isItemCheckedFunc(customPrivacyItem.parameterName) : bluebird.resolve(false); }))
                     .then(function (results) {
                     customPrivacyItems.forEach(function (customPrivacyItem, index) { return customPrivacyItem.checked = results[index]; });
-                    return __spreadArray(__spreadArray([], tdsPrivacyItems), customPrivacyItems).sort(function (a, b) { return a.order < b.order ? -1 : (a.order == b.order ? 0 : 1); });
+                    return __spreadArrays(tdsPrivacyItems, customPrivacyItems).sort(function (a, b) { return a.order < b.order ? -1 : (a.order == b.order ? 0 : 1); });
                 });
             });
         };

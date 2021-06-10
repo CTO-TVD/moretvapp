@@ -1,7 +1,9 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 define(["require", "exports", "bluebird", "../errorhandling/BaseError"], function (require, exports, bluebird, BaseError_1) {
     "use strict";
@@ -68,7 +70,7 @@ define(["require", "exports", "bluebird", "../errorhandling/BaseError"], functio
             if (func.clear)
                 func.clear();
             timeoutDebounce = setTimeout(function () {
-                var r2 = onCalc.apply(void 0, __spreadArray([r1], args));
+                var r2 = onCalc.apply(void 0, __spreadArrays([r1], args));
                 deferExecution = Defer.defer();
                 timeoutExecution = setTimeout(function () { return deferExecution === null || deferExecution === void 0 ? void 0 : deferExecution.resolve(); }, options.minExecutionMs);
                 bluebird.all([r2, deferExecution.promise])
@@ -77,7 +79,7 @@ define(["require", "exports", "bluebird", "../errorhandling/BaseError"], functio
                     timeoutDebounce = undefined;
                     timeoutExecution = undefined;
                     deferExecution = undefined;
-                    onLeave.apply(void 0, __spreadArray([r1, r2], args));
+                    onLeave.apply(void 0, __spreadArrays([r1, r2], args));
                 })
                     .done();
             }, options.debounceMs);
