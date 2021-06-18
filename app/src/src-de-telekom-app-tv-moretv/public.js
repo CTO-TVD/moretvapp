@@ -21,23 +21,18 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-define(["require", "exports", "src/src-de-telekom-react/public", "src/src-de-telekom-tv-moretv/public", "src/src-de-telekom-tv-core/public", "./component/content_tiles/public", "./component/detailpage/public", "./component/purchase/public"], function (require, exports, public_1, public_2, public_3, public_4, public_5, public_6) {
+define(["require", "exports", "src/src-de-telekom-react/public", "./component/content_tiles/public", "./component/detailpage/public", "./component/purchase/public"], function (require, exports, public_1, public_2, public_3, public_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.AppTvMtvModule = void 0;
+    __exportStar(public_2, exports);
+    __exportStar(public_3, exports);
     __exportStar(public_4, exports);
-    __exportStar(public_5, exports);
-    __exportStar(public_6, exports);
     var AppTvMtvModule = (function (_super) {
         __extends(AppTvMtvModule, _super);
         function AppTvMtvModule() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        AppTvMtvModule.prototype.config = function () {
-            if (!public_2.ServiceClientContext.instance) {
-                public_2.ServiceClientContext.instance = new public_2.ServiceClientContext(function (input) { return public_3.ApplicationClient.authMan.getAccessToken(input); });
-            }
-        };
         return AppTvMtvModule;
     }(public_1.ReactBaseModule));
     exports.AppTvMtvModule = AppTvMtvModule;

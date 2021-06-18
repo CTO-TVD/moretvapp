@@ -110,15 +110,15 @@ define(["require", "exports", "bluebird", "underscore", "src/src-de-telekom/publ
                 return t ? mapper_1.Mapper.parseTermsOfUse(t) : undefined;
             });
         };
-        ApplicationClient.prepareBooking = function (id, auth) {
-            return public_2.ServiceClientAuthentication.prepareBooking(public_2.ServiceClientContext.instance, auth, id)
+        ApplicationClient.prepareBooking = function (id, auth, mtv_token) {
+            return public_2.ServiceClientAuthentication.prepareBooking(public_2.ServiceClientContext.instance, auth, id, mtv_token)
                 .then(function (data) {
                 var _a;
                 return mapper_1.Mapper.parsePrepareBooking(data.data, ((_a = data.serviceData) === null || _a === void 0 ? void 0 : _a.statusCode) !== undefined ? data.serviceData.statusCode : 500);
             });
         };
-        ApplicationClient.confirmBooking = function (transactionId, id, auth) {
-            return public_2.ServiceClientAuthentication.confirmBooking(public_2.ServiceClientContext.instance, auth, transactionId, id)
+        ApplicationClient.confirmBooking = function (transactionId, id, auth, mtv_token) {
+            return public_2.ServiceClientAuthentication.confirmBooking(public_2.ServiceClientContext.instance, auth, transactionId, id, mtv_token)
                 .then(function (data) {
                 var _a;
                 return mapper_1.Mapper.parsePrepareBooking(data.data, ((_a = data.serviceData) === null || _a === void 0 ? void 0 : _a.statusCode) !== undefined ? data.serviceData.statusCode : 500);
@@ -144,8 +144,8 @@ define(["require", "exports", "bluebird", "underscore", "src/src-de-telekom/publ
                 return mapper_1.Mapper.parseSkyBooking(data.data);
             });
         };
-        ApplicationClient.getContracts = function (auth) {
-            return public_2.ServiceClientAuthentication.getContracts(public_2.ServiceClientContext.instance, auth)
+        ApplicationClient.getContracts = function (auth, mtv_token) {
+            return public_2.ServiceClientAuthentication.getContracts(public_2.ServiceClientContext.instance, auth, mtv_token)
                 .then(function (data) {
                 var _a;
                 return mapper_1.Mapper.parseContracts(data.data, ((_a = data.serviceData) === null || _a === void 0 ? void 0 : _a.statusCode) !== undefined ? data.serviceData.statusCode : 500);

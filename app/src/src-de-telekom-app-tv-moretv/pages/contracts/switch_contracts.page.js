@@ -23,8 +23,11 @@ define(["require", "exports", "react", "src/src-de-telekom-tv-moretv/public", "s
     exports.MtvSwitchContractsPage = void 0;
     var MtvSwitchContractsPage = (function (_super) {
         __extends(MtvSwitchContractsPage, _super);
-        function MtvSwitchContractsPage() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function MtvSwitchContractsPage(props, context) {
+            var _this = _super.call(this, props, context) || this;
+            var intent = new public_1.IntentMoreTV.ContractsSwitch(_this.location.intent.data);
+            _this.mtv_token = intent.data.token;
+            return _this;
         }
         MtvSwitchContractsPage_1 = MtvSwitchContractsPage;
         MtvSwitchContractsPage.prototype.componentDidMount = function () {
@@ -40,7 +43,7 @@ define(["require", "exports", "react", "src/src-de-telekom-tv-moretv/public", "s
                             _this.startMagentaHausApp();
                         }
                         else {
-                            _this.startIntent(new public_1.IntentMoreTV.Contracts(), { type: "replace" });
+                            _this.startIntent(new public_1.IntentMoreTV.Contracts({ token: _this.mtv_token }), { type: "replace" });
                         }
                     }
                 });

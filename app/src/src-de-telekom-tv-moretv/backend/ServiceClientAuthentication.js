@@ -21,7 +21,7 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "./Servic
             var key = type + ":" + scope;
             return this.tokenCache.getValue(key) || this.tokenCache.setValue(key, cacheCallback());
         };
-        ServiceClientAuthentication.authenticate = function (context, auth, callback) {
+        ServiceClientAuthentication.authenticate = function (context, auth, callback, mtv_token) {
             var _this = this;
             var _a;
             var clients = (_a = public_1.Configuration.instance.sam3) === null || _a === void 0 ? void 0 : _a.clients;
@@ -39,27 +39,26 @@ define(["require", "exports", "bluebird", "src/src-de-telekom/public", "./Servic
                 }
                 input.forceRefresh = auth.force ? "true" : "false";
             }
-            return this
-                .getToken(input.acr, input.scope, function () { return _this.invokeTokenCallback(context, input); })
+            return mtv_token ? callback(mtv_token) : this.getToken(input.acr, input.scope, function () { return _this.invokeTokenCallback(context, input); })
                 .then(function (tokenResponse) { return callback(tokenResponse.data); });
         };
-        ServiceClientAuthentication.prepareBooking = function (context, auth, id) {
-            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.prepareBooking(context, id, token); });
+        ServiceClientAuthentication.prepareBooking = function (context, auth, id, mtv_token) {
+            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.prepareBooking(context, id, token); }, mtv_token);
         };
-        ServiceClientAuthentication.confirmBooking = function (context, auth, transactionId, id) {
-            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.confirmBooking(context, transactionId, id, token); });
+        ServiceClientAuthentication.confirmBooking = function (context, auth, transactionId, id, mtv_token) {
+            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.confirmBooking(context, transactionId, id, token); }, mtv_token);
         };
-        ServiceClientAuthentication.getCustomerData = function (context, auth) {
-            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.getCustomerData(context, token); });
+        ServiceClientAuthentication.getCustomerData = function (context, auth, mtv_token) {
+            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.getCustomerData(context, token); }, mtv_token);
         };
         ServiceClientAuthentication.skyBooking = function (context, auth, agbPermission, customerData, marketingPermission, transactionId, id) {
             return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.skyBooking(context, agbPermission, customerData, marketingPermission, transactionId, id, token); });
         };
-        ServiceClientAuthentication.getGrants = function (context, auth) {
-            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.getGrants(context, token); });
+        ServiceClientAuthentication.getGrants = function (context, auth, mtv_token) {
+            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.getGrants(context, token); }, mtv_token);
         };
-        ServiceClientAuthentication.getContracts = function (context, auth) {
-            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.getContracts(context, token); });
+        ServiceClientAuthentication.getContracts = function (context, auth, mtv_token) {
+            return this.authenticate(context, auth, function (token) { return ServiceClientCache_1.ServiceClientCache.getContracts(context, token); }, mtv_token);
         };
         var ServiceClientAuthentication_1;
         ServiceClientAuthentication.classID = 0x506;

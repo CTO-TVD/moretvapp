@@ -64,6 +64,7 @@ define(["require", "exports", "react", "bluebird", "src/src-de-telekom/public", 
             };
             var intent = new public_2.IntentMoreTV.Detailpage(_this.location.intent.data);
             _this.pid = intent.data.id || "";
+            _this.mtv_token = intent.data.token;
             return _this;
         }
         MtvDetailPage_1 = MtvDetailPage;
@@ -217,7 +218,7 @@ define(["require", "exports", "react", "bluebird", "src/src-de-telekom/public", 
                         this.startMagentaHausApp(this.state.package);
                     }
                     else {
-                        var iDt = new public_2.IntentMoreTV.PurchaseDT({ id: this.state.package.ID });
+                        var iDt = new public_2.IntentMoreTV.PurchaseDT({ id: this.state.package.ID, token: this.mtv_token });
                         this.startIntent(iDt);
                     }
                     break;

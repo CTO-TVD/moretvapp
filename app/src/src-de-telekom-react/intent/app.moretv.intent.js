@@ -25,11 +25,12 @@ define(["require", "exports", "../baseRouter/public", "src/src-de-telekom/public
                 var scenario = params.get("scenario");
                 var pid = params.get("package");
                 var channelex = params.get("channelex");
+                var mtv_token = params.get("mtvtoken");
                 switch (scenario) {
-                    case "portal_dt": return new OverviewDT();
+                    case "portal_dt": return new OverviewDT({ token: mtv_token });
                     case "portal_sky": return new OverviewSky();
-                    case "detail": return new Detailpage({ id: pid });
-                    case "mysubscriptions": return public_2.Feature.has(public_2.FeatureItems.moreTvMagentaHaus, public_2.FeatureRights.viewItems) ? new ContractsSwitch() : new Contracts();
+                    case "detail": return new Detailpage({ id: pid, token: mtv_token });
+                    case "mysubscriptions": return public_2.Feature.has(public_2.FeatureItems.moreTvMagentaHaus, public_2.FeatureRights.viewItems) ? new ContractsSwitch({ token: mtv_token }) : new Contracts({ token: mtv_token });
                     case "termsofuse": return new TermsOfUse({ id: pid });
                     case "upselling": return new UpsellingPage({ id: channelex, quality: params.get("quality") });
                     default:

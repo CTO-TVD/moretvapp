@@ -85,6 +85,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/pub
             _this.dlgActionPinForgotten = false;
             var intent = new public_1.IntentMoreTV.PurchaseDT(_this.location.intent.data);
             _this.packageId = intent.data.id || "";
+            _this.mtv_token = intent.data.token;
             _this.state = {
                 pageloading: true,
                 background: { image: undefined },
@@ -146,7 +147,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/pub
         MtvDtPurchasePage.prototype.confirmBooking = function () {
             var _this = this;
             if (this.state.transactionId) {
-                mtv.ApplicationClient.confirmBooking(this.state.transactionId, this.packageId, this.state.auth)
+                mtv.ApplicationClient.confirmBooking(this.state.transactionId, this.packageId, this.state.auth, this.mtv_token)
                     .then(function (value) {
                     _this.resolveConfirmBooking(value);
                 })
@@ -239,7 +240,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/pub
                         if (!this.state.isDestroying && transactionId_1) {
                             setTimeout(function () {
                                 if (!_this.destroyed) {
-                                    mtv.ApplicationClient.confirmBooking(transactionId_1, _this.packageId, _this.state.auth)
+                                    mtv.ApplicationClient.confirmBooking(transactionId_1, _this.packageId, _this.state.auth, _this.mtv_token)
                                         .then(function (value) {
                                         _this.resolveConfirmBooking(value);
                                     })
@@ -368,7 +369,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/pub
                         if (!this.state.isDestroying) {
                             setTimeout(function () {
                                 if (!_this.destroyed) {
-                                    return mtv.ApplicationClient.prepareBooking(_this.packageId, _this.state.auth)
+                                    return mtv.ApplicationClient.prepareBooking(_this.packageId, _this.state.auth, _this.mtv_token)
                                         .then(function (value) {
                                         _this.resolvePrepareBooking(value);
                                     })
@@ -504,7 +505,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-react/pub
                         { enabled: true, step: 2 + TermsOfUse + Transfer + Partner, total: Total, cancel: undefined, next: _this.onFinish, back: _this.onBack, optionsAccepted: [] }
                     ]
                 });
-                return mtv.ApplicationClient.prepareBooking(_this.packageId, _this.state.auth);
+                return mtv.ApplicationClient.prepareBooking(_this.packageId, _this.state.auth, _this.mtv_token);
             })
                 .then(function (value) {
                 _this.resolvePrepareBooking(value);

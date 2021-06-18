@@ -36,6 +36,8 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-tv-moretv
         __extends(MtvContractsPage, _super);
         function MtvContractsPage(props, context) {
             var _this = _super.call(this, props, context) || this;
+            var intent = new public_1.IntentMoreTV.Contracts(_this.location.intent.data);
+            _this.mtv_token = intent.data.token;
             _this.dialogService = public_1.TVDialogHostService.getInstance();
             _this.uarService = public_7.UarService.getInstance();
             var closePinForgotten = _this.uarService.registerPinForgotten(function () {
@@ -82,7 +84,7 @@ define(["require", "exports", "bluebird", "react", "src/src-de-telekom-tv-moretv
             var _this = this;
             this.setState({ pageloading: true });
             return mtv.ApplicationClient
-                .getContracts(this.pinContext)
+                .getContracts(this.pinContext, this.mtv_token)
                 .then(function (value) {
                 public_1.DiagnosticNotificationComponent.notify("DtBooking: " + value.HttpStatusCode);
                 if (value.HttpStatusCode == 202) {

@@ -63,19 +63,13 @@ define(["require", "exports", "bluebird", "URIjs/URI", "src/src-de-telekom/publi
             }
         };
         ServiceClientSAM3.prototype.getLineToken = function (params) {
-            var _this = this;
             this.check();
             var token = this.tokenStorage.getValue(params.scope);
             if (token != null && params.forceRefresh !== "true") {
                 return token.then(function (d) { return d.data; });
             }
             else {
-                return this.Sam3PasswordLogin(params)
-                    .then(function (data) {
-                    var res = bluebird.resolve(new public_1.MetaInfoService(new public_1.MetaInfoData(data.access_token)));
-                    _this.tokenStorage.setValue(params.scope, res);
-                    return data.access_token;
-                });
+                return bluebird.resolve("abcdefghijklmnopqrstuvwxzy");
             }
         };
         ServiceClientSAM3.prototype.getPinToken = function (params, pin) {

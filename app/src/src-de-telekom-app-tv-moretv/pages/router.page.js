@@ -33,7 +33,8 @@ define(["require", "exports", "react", "URIjs/URI", "src/src-de-telekom-react/pu
                     package: queries["package"],
                     channel: queries["channel"],
                     channelex: queries["channelex"],
-                    quality: queries["quality"]
+                    quality: queries["quality"],
+                    mtv_token: queries["mtvtoken"]
                 };
             }
             return _this;
@@ -59,6 +60,9 @@ define(["require", "exports", "react", "URIjs/URI", "src/src-de-telekom-react/pu
             }
             if (this.state.quality) {
                 params.set("quality", this.state.quality);
+            }
+            if (this.state.mtv_token) {
+                params.set("mtvtoken", this.state.mtv_token);
             }
             this.startIntent(public_1.IntentMoreTV.Factory.create(params));
         };

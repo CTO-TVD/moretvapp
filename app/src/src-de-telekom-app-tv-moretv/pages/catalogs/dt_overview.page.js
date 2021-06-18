@@ -36,6 +36,8 @@ define(["require", "exports", "react", "bluebird", "src/src-de-telekom-react/pub
         __extends(MtvDtOverviewPage, _super);
         function MtvDtOverviewPage(props, context) {
             var _this = _super.call(this, props, context) || this;
+            var intent = new public_1.IntentMoreTV.OverviewDT(_this.location.intent.data);
+            _this.mtv_token = intent.data.token;
             _this.state = { title: undefined, topPosition: 0 };
             return _this;
         }
@@ -121,7 +123,7 @@ define(["require", "exports", "react", "bluebird", "src/src-de-telekom-react/pub
             if (!this.state.bigTeaser || this.state.bigTeaser.packageRef == "") {
                 return;
             }
-            var intent = new public_1.IntentMoreTV.Detailpage({ id: this.state.bigTeaser.packageRef });
+            var intent = new public_1.IntentMoreTV.Detailpage({ id: this.state.bigTeaser.packageRef, token: this.mtv_token });
             this.startIntent(intent);
         };
         MtvDtOverviewPage.prototype.showErrorDialog = function (error) {
@@ -169,7 +171,7 @@ define(["require", "exports", "react", "bluebird", "src/src-de-telekom-react/pub
                                 return React.createElement(public_1.NavigationElement, { id: x.toString(), key: x.toString(), className: "tile16x9", style: public_3.declaration().props({ top: py, left: px }).toStyle(), onFocusIn: function () {
                                         _this.setState({ topPosition: py + interfaces_1.MtvOverviewPageBase.TEASERHEIGHT + interfaces_1.MtvOverviewPageBase.TEASERMARGIN + (2 * public_3.Css.dimensions.borderWidth) });
                                     }, onClick: function () {
-                                        var intent = new public_1.IntentMoreTV.Detailpage({ id: element.detailRef });
+                                        var intent = new public_1.IntentMoreTV.Detailpage({ id: element.detailRef, token: _this.mtv_token });
                                         _this.startIntent(intent);
                                     } },
                                     React.createElement(public_2.ContentMtvTiles.Tile16x9, { data: { title: element.title, image: element.image, subtitle: element.subtitle, meta: element.meta } }));
