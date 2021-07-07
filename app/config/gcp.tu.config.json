@@ -1,7 +1,0 @@
-﻿{
-    "mock": {
-        "endpoint": "https://global.telekom.com/gcp-web-api/oauth",
-        "basisAuth": "",
-        "scope": "T00X7T70"
-    }
-}
