@@ -3,6 +3,6 @@
         "endpoint": "https://global.telekom.com/gcp-web-api/oauth",
         //tbd
         "basisAuth": "",
-        "scope": ""
+        "scope": "D7BA6VN5"
     }
 }
