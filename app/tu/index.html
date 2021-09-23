@@ -18,6 +18,9 @@
     <script>
 
         function loadDTUI() {
+            if (window.Android) {
+                window.Android.addTimeMeasurement("webHtmlLoaded", Date.now().toString());
+            }
 
             // use property of zacPluginObject to force a connection to WPEPluginProcess
             const objZacSystem = (document.getElementById("zacPluginObject") || {}).System;
