@@ -1,13 +1,10 @@
 {
-  "buildAgent": "local",
-  "buildDate": "1970-01-01T00:00:00.000Z",
-  "buildVersion": "0",
-  "buildIsNightly": false,
-  
-  "branch": "master",
-  "commit": "unknown",
-  
-  "majorVersion": "2.110",
-  
-  "packageDate": "1970-01-01T00:00:00.000Z"
+    "buildAgent": "githubActions",
+    "buildDate": "2022-07-11T09:54:20.235Z",
+    "buildVersion": "33",
+    "buildIsNightly": true,
+    "branch": "main",
+    "commit": "3da837ef721709aa2739f3b9a4c8afa31bc8bb97",
+    "majorVersion": "2.110",
+    "packageDate": "1970-01-01T00:00:00.000Z"
 }
