@@ -5,12 +5,12 @@
 
         "aws": {
             "transformationRule": "aws",
-            "url": "https://prod.dcp.telekom-dienste.de/auth"
+            "url": ""
         },
 
         "dev": {
             "transformationRule": "none",
-            "url": "ws://scrum999.ddnss.de:9001/mqtt"
+            "url": ""
         }
 
     }
